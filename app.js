@@ -25,5 +25,25 @@ yargs.command({
     }
 })
 
+yargs.command({
+    command:'add-todo',
+    describe:'Add a new item to track under a given category.',
+    builder:{
+        todo: {
+            demandOption:true,
+            describe:'The name of the todo to be tracked',
+            type:'string'
+        },
+        category:{
+            demandOption:true,
+            describe:'Under which category you like to add your todo item',
+            type:'string'
+        }
+    },
+    handler(argv){
+        trackedItems.addTodo(argv.todo,argv.category);
+    }
+})
+
 
 yargs.parse();

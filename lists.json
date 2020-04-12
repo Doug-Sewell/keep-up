@@ -1,1 +1,52 @@
-[{"category":"Coding","items":[{"topic":"angular","date":"March 8, 2020"},{"topic":"NodeJS","date":"March 8, 2020"},{"topic":"Java","date":"March 8, 2020"},{"topic":"CSS","date":"March 8, 2020"},{"topic":"PHP","date":"March 8, 2020"},{"topic":"JavaScript","date":"March 8, 2020"},{"topic":"Kotlin","date":"2020-03-09T17:48:46.982Z"}]}]
+[
+    {
+        "category": "Coding",
+        "items": [
+            {
+                "topic": "angular",
+                "date": "2020-04-10T18:38:03.032Z",
+                "daysToWork": 3
+            },
+            {
+                "topic": "NodeJS",
+                "date": "2020-04-11T18:38:03.032Z",
+                "daysToWork": 3
+            },
+            {
+                "topic": "Java",
+                "date": "2020-04-11T18:38:03.032Z",
+                "daysToWork": 3
+            },
+            {
+                "topic": "CSS",
+                "date": "2020-04-11T18:38:03.032Z",
+                "daysToWork": 3
+            },
+            {
+                "topic": "PHP",
+                "date": "2020-04-11T18:38:03.032Z",
+                "daysToWork": 3
+            },
+            {
+                "topic": "JavaScript",
+                "date": "2020-04-11T18:38:03.032Z",
+                "daysToWork": 3
+            },
+            {
+                "topic": "Kotlin",
+                "date": "2020-03-09T17:48:46.982Z",
+                "daysToWork": 3
+            },
+            {
+                "topic": "React",
+                "date": "2020-04-11T17:56:23.706Z",
+                "daysToWork": 3
+            },
+            {
+                "topic": "Github",
+                "date": "2020-04-06T18:38:03.032Z",
+                "daysToWork": 5
+            }
+        ]
+    }
+]

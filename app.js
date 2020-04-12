@@ -38,12 +38,26 @@ yargs.command({
             demandOption:true,
             describe:'Under which category you like to add your todo item',
             type:'string'
+        },
+        daysUntilOverdue:{
+            demandOption:true,
+            describe:'The number of days you have until that todo is considered overdue for having not worked on it for too long.',
+            type:'number'
         }
     },
     handler(argv){
-        trackedItems.addTodo(argv.todo,argv.category);
+        trackedItems.addTodo(argv.todo,argv.category, argv.daysUntilOverdue);
     }
 })
 
 
 yargs.parse();
+
+/*
+TODO: 
+- Data should print to console wheter it's capitalized or not.
+- Add the ability to rename Todos
+- Add the ability to create and delete categories
+- Add ability to delete a todo
+- Add ability to manually set the last worked on date.
+*/

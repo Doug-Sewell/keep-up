@@ -96,6 +96,18 @@ const addTodo = (todo, category, daysToWork) => {
     }
 }
 
+//Add a category
+const addCategory = categoryInput => {
+    const items = getItems();
+    items.forEach(category => {
+        if(category.category.toLowerCase() == categoryInput.toLowerCase()) {
+            console.log(chalk.red.inverse('Error: A category with this name already exists.'));
+        } else {
+            console.log(chalk.green.inverse('Hooray! This can be added.'));
+        }
+    })
+}
+
 //Returns the saved data as JSON
 const getItems = () => {
     const dataBuffer = fs.readFileSync('lists.json');
@@ -126,7 +138,8 @@ const getToday = () => {
 }
 
 module.exports = {
-    listAllItems: listAllItems,
-    listAllTodos: listAllTodos,
-    addTodo: addTodo
+    listAllItems,
+    listAllTodos,
+    addTodo,
+    addCategory
 }

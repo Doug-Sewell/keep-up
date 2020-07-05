@@ -74,7 +74,7 @@ yargs.parse();
 TODO:
 - Data should print to console wheter it's capitalized or not.
 - Add the ability to rename Todos
-- Add the ability to create and delete categories
+- Add the ability to delete categories
 - Add ability to delete a todo
 - Add ability to manually set the last worked on date.
 */

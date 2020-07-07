@@ -67,6 +67,26 @@ yargs.command({
     }
 });
 
+yargs.command({
+    command:'delete-todo',
+    describe:'Remove a todo from your tracked items.',
+    builder: {
+        category:{
+            demandOption:true,
+            describe:'The todo will be deleted from a given category. A category is needed in case you have the same todo listed in different categories.',
+            type:'string'
+        },
+        todo:{
+            demandOption:true,
+            describe:'The todo item you\'d like deleted.',
+            type:'string'
+        }
+    },
+    handler(argv){
+        trackedItems.deleteTodo(argv.todo,argv.category);
+    }
+})
+
 
 yargs.parse();
 
@@ -75,6 +95,6 @@ TODO:
 - Data should print to console wheter it's capitalized or not.
 - Add the ability to rename Todos
 - Add the ability to delete categories
-- Add ability to delete a todo
 - Add ability to manually set the last worked on date.
+- Make ability to create todos without a date as a requirement.
 */

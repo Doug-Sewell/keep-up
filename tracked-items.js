@@ -120,6 +120,52 @@ const addCategory = categoryInput => {
     }
 }
 
+
+//Delete a Todo
+const deleteTodo = (todo, inputCategory) => {
+    let categoryIndex;
+    const items = getItems();
+    let todoIndexToDelete;
+
+    //Checks if the category from the user exists.
+    categoryIndex = items.findIndex((category) => category.category.toLowerCase() == inputCategory.toLowerCase());
+    
+    //If category doesn't exist, user sees error in console.
+    if(categoryIndex < 0) {
+        console.log(chalk.inverse.red('Sorry, that category does not exist. Please try again with a different category.'));
+    } else {        
+        
+        //Loops through todos in the category. If it exists, then the index is stored in a variable.
+        items[categoryIndex].items.forEach( (oldTodo,index) => {
+            if(oldTodo.topic.toLowerCase() == todo.toLowerCase()) {
+                todoIndexToDelete = index;
+            }
+        });
+
+        //If the todo does not exist, then the user receives an error. Otherwise, the todo JSON gets updated.
+        if(todoIndexToDelete >= 0) {
+            items[categoryIndex].items.splice(todoIndexToDelete,1);
+            saveTodos(items);
+            console.log(chalk.green.inverse(`You successfully deleted ${todo} from the ${inputCategory} category`));
+        } else {
+            console.log(chalk.red.inverse(`Sorry, that todo of ${todo} within the ${inputCategory} category does not exist. Please try again.`));
+        }
+
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
 //Returns the saved data as JSON
 const getItems = () => {
     const dataBuffer = fs.readFileSync('lists.json');
@@ -153,5 +199,6 @@ module.exports = {
     listAllItems,
     listAllTodos,
     addTodo,
-    addCategory
+    addCategory,
+    deleteTodo
 }

@@ -129,22 +129,22 @@ const deleteTodo = (todo, inputCategory) => {
 
     //Checks if the category from the user exists.
     categoryIndex = items.findIndex((category) => category.category.toLowerCase() == inputCategory.toLowerCase());
-    
+
     //If category doesn't exist, user sees error in console.
-    if(categoryIndex < 0) {
+    if (categoryIndex < 0) {
         console.log(chalk.inverse.red('Sorry, that category does not exist. Please try again with a different category.'));
-    } else {        
-        
+    } else {
+
         //Loops through todos in the category. If it exists, then the index is stored in a variable.
-        items[categoryIndex].items.forEach( (oldTodo,index) => {
-            if(oldTodo.topic.toLowerCase() == todo.toLowerCase()) {
+        items[categoryIndex].items.forEach((oldTodo, index) => {
+            if (oldTodo.topic.toLowerCase() == todo.toLowerCase()) {
                 todoIndexToDelete = index;
             }
         });
 
         //If the todo does not exist, then the user receives an error. Otherwise, the todo JSON gets updated.
-        if(todoIndexToDelete >= 0) {
-            items[categoryIndex].items.splice(todoIndexToDelete,1);
+        if (todoIndexToDelete >= 0) {
+            items[categoryIndex].items.splice(todoIndexToDelete, 1);
             saveTodos(items);
             console.log(chalk.green.inverse(`You successfully deleted ${todo} from the ${inputCategory} category`));
         } else {
@@ -152,19 +152,40 @@ const deleteTodo = (todo, inputCategory) => {
         }
 
     }
-    
 }
 
 
+//Rename a todo
+const renameTodo = (category, oldTodo, newTodo) => {
+    let categoryIndex;
+    let updatedTodo = false;
 
+    const items = getItems();
 
+    items.forEach((categoryBlock, index) => {
+        if (categoryBlock.category.toLowerCase() == category.toLowerCase()) {
+            categoryIndex = index;
+        }
+    });
 
+    if(categoryIndex >= 0) {
+        items[categoryIndex].items.forEach((todo, index) => {
+            if(todo.topic.toLowerCase() == oldTodo.toLowerCase()) {
+                items[categoryIndex].items[index].topic = newTodo;
+                updatedTodo = true;
+            }
+        });
 
-
-
-
-
-
+        if(updatedTodo) {
+            saveTodos(items);
+            console.log(chalk.green.inverse(`Success! You todo item has been updated`));
+        } else {
+            console.log(chalk.red.inverse(`Sorry, we could not update your todo item of "${oldTodo}" because a todo item with that name in this category does not exist. Please try again.`));
+        }
+    } else {
+        console.log(chalk.red.inverse('Sorry, the category you searched for does not exist. Please try again.'));
+    }
+}
 
 //Returns the saved data as JSON
 const getItems = () => {
@@ -200,5 +221,6 @@ module.exports = {
     listAllTodos,
     addTodo,
     addCategory,
-    deleteTodo
+    deleteTodo,
+    renameTodo
 }

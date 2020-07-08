@@ -57,35 +57,59 @@ yargs.command({
     describe: 'Add a new category of to-do items',
     builder: {
         category: {
-            demandOption:true,
-            describe:'The category given will hold all to-do items you place under it.',
-            type:'string'
+            demandOption: true,
+            describe: 'The category given will hold all to-do items you place under it.',
+            type: 'string'
         }
     },
-    handler(argv){
+    handler(argv) {
         trackedItems.addCategory(argv.category);
     }
 });
 
 yargs.command({
-    command:'delete-todo',
-    describe:'Remove a todo from your tracked items.',
+    command: 'delete-todo',
+    describe: 'Remove a todo from your tracked items.',
     builder: {
-        category:{
-            demandOption:true,
-            describe:'The todo will be deleted from a given category. A category is needed in case you have the same todo listed in different categories.',
-            type:'string'
+        category: {
+            demandOption: true,
+            describe: 'The todo will be deleted from a given category. A category is needed in case you have the same todo listed in different categories.',
+            type: 'string'
         },
-        todo:{
-            demandOption:true,
-            describe:'The todo item you\'d like deleted.',
-            type:'string'
+        todo: {
+            demandOption: true,
+            describe: 'The todo item you\'d like deleted.',
+            type: 'string'
         }
     },
-    handler(argv){
-        trackedItems.deleteTodo(argv.todo,argv.category);
+    handler(argv) {
+        trackedItems.deleteTodo(argv.todo, argv.category);
     }
-})
+});
+
+yargs.command({
+    command: 'rename-todo',
+    builder: {
+        category: {
+            demandOption: true,
+            describe: 'Category for the todo you wish to rename.',
+            type: 'string'
+        },
+        oldTodo: {
+            demandOption: true,
+            describe: 'The todo you want to rename',
+            type: 'string'
+        },
+        newTodo: {
+            demandOption: true,
+            describe: 'The new name for your todo',
+            type: 'string'
+        }
+    },
+    handler(argv) {
+        trackedItems.renameTodo(argv.category, argv.oldTodo, argv.newTodo);
+    }
+});
 
 
 yargs.parse();
@@ -93,7 +117,7 @@ yargs.parse();
 /*
 TODO:
 - Data should print to console wheter it's capitalized or not.
-- Add the ability to rename Todos
+- Add ability to rename categories
 - Add the ability to delete categories
 - Add ability to manually set the last worked on date.
 - Make ability to create todos without a date as a requirement.

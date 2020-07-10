@@ -111,13 +111,34 @@ yargs.command({
     }
 });
 
+yargs.command({
+  command:'rename-category',
+  builder:{
+      oldCategory:{
+          demandOption:true,
+          describe:'The name of the category you wish to change',
+          type:'string'
+      },
+      newCategory:{
+          demandOption:true,
+          describe:'What you wish the new category name to be',
+          type:'string'
+      }
+  },
+  handler(argv){
+      trackedItems.renameCategory(argv.oldCategory, argv.newCategory);
+  }  
+})
+
 
 yargs.parse();
 
 /*
-TODO:
+TODO
+- Fix bug in which renaming categories doesn't check for duplicates. 
+  The issue is you can rename a category to another category that already exists. 
+
 - Data should print to console wheter it's capitalized or not.
-- Add ability to rename categories
 - Add the ability to delete categories
 - Add ability to manually set the last worked on date.
 - Make ability to create todos without a date as a requirement.

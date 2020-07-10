@@ -187,6 +187,25 @@ const renameTodo = (category, oldTodo, newTodo) => {
     }
 }
 
+const renameCategory = (oldCategory, newCategory) => {
+    const items = getItems();
+    let updateIndex;
+
+    items.forEach((category,index) => {
+        if(category.category.toLowerCase() == oldCategory.toLowerCase()) {
+            updateIndex = index;
+        }
+    });
+
+    if(updateIndex >= 0) {
+        items[updateIndex].category = newCategory;
+        saveTodos(items);
+        console.log(chalk.green.inverse(`Success! Your category of ${oldCategory} has been changed to ${newCategory}`));
+    } else {
+        console.log(chalk.red.inverse(`Sorry, could not find a category with the name of ${oldCategory}. Please try again.`));
+    }
+}
+
 //Returns the saved data as JSON
 const getItems = () => {
     const dataBuffer = fs.readFileSync('lists.json');
@@ -222,5 +241,6 @@ module.exports = {
     addTodo,
     addCategory,
     deleteTodo,
-    renameTodo
+    renameTodo,
+    renameCategory
 }

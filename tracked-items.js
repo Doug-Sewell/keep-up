@@ -3,9 +3,13 @@ const fs = require('fs');
 
 //Lists all categories being tracked.
 const listAllItems = () => {
-    console.log(chalk.blue.inverse('Your tracked task categories:'))
     const items = getItems();
-    items.forEach(item => console.log(`-${item.category}`));
+    if (items.length === 0) {
+        console.log(chalk.blue.inverse('Not currently tracking any categories. Add some!'));
+    } else {
+        console.log(chalk.blue.inverse('Your tracked task categories:'))
+        items.forEach(item => console.log(`-${item.category}`));
+    }
 }
 
 //Lists all todos in a user provided category.
@@ -168,15 +172,15 @@ const renameTodo = (category, oldTodo, newTodo) => {
         }
     });
 
-    if(categoryIndex >= 0) {
+    if (categoryIndex >= 0) {
         items[categoryIndex].items.forEach((todo, index) => {
-            if(todo.topic.toLowerCase() == oldTodo.toLowerCase()) {
+            if (todo.topic.toLowerCase() == oldTodo.toLowerCase()) {
                 items[categoryIndex].items[index].topic = newTodo;
                 updatedTodo = true;
             }
         });
 
-        if(updatedTodo) {
+        if (updatedTodo) {
             saveTodos(items);
             console.log(chalk.green.inverse(`Success! You todo item has been updated`));
         } else {
@@ -191,13 +195,13 @@ const renameCategory = (oldCategory, newCategory) => {
     const items = getItems();
     let updateIndex;
 
-    items.forEach((category,index) => {
-        if(category.category.toLowerCase() == oldCategory.toLowerCase()) {
+    items.forEach((category, index) => {
+        if (category.category.toLowerCase() == oldCategory.toLowerCase()) {
             updateIndex = index;
         }
     });
 
-    if(updateIndex >= 0) {
+    if (updateIndex >= 0) {
         items[updateIndex].category = newCategory;
         saveTodos(items);
         console.log(chalk.green.inverse(`Success! Your category of ${oldCategory} has been changed to ${newCategory}`));
@@ -205,6 +209,26 @@ const renameCategory = (oldCategory, newCategory) => {
         console.log(chalk.red.inverse(`Sorry, could not find a category with the name of ${oldCategory}. Please try again.`));
     }
 }
+
+//Delete a category
+const deleteCategory = userInputCategory => {
+    const items = getItems();
+    let categoryIndex = -1;
+    items.forEach((topic, index) => {
+        if (topic.category.toLowerCase() == userInputCategory.toLowerCase()) {
+            categoryIndex = index;
+        }
+    });
+
+    if (categoryIndex >= 0) {
+        items.splice(categoryIndex, 1);
+        saveTodos(items);
+        console.log(chalk.green.inverse(`Success! Deleted category of ${userInputCategory}`))
+    } else {
+        console.log(chalk.red.inverse(`Sorry, category of ${userInputCategory} does not exist. Please try another category.`));
+    }
+}
+
 
 //Returns the saved data as JSON
 const getItems = () => {
@@ -242,5 +266,6 @@ module.exports = {
     addCategory,
     deleteTodo,
     renameTodo,
-    renameCategory
+    renameCategory,
+    deleteCategory
 }

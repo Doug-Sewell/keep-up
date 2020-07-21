@@ -112,22 +112,36 @@ yargs.command({
 });
 
 yargs.command({
-  command:'rename-category',
-  builder:{
-      oldCategory:{
-          demandOption:true,
-          describe:'The name of the category you wish to change',
-          type:'string'
-      },
-      newCategory:{
-          demandOption:true,
-          describe:'What you wish the new category name to be',
-          type:'string'
-      }
-  },
-  handler(argv){
-      trackedItems.renameCategory(argv.oldCategory, argv.newCategory);
-  }  
+    command: 'rename-category',
+    builder: {
+        oldCategory: {
+            demandOption: true,
+            describe: 'The name of the category you wish to change',
+            type: 'string'
+        },
+        newCategory: {
+            demandOption: true,
+            describe: 'What you wish the new category name to be',
+            type: 'string'
+        }
+    },
+    handler(argv) {
+        trackedItems.renameCategory(argv.oldCategory, argv.newCategory);
+    }
+});
+
+yargs.command({
+    command: 'delete-category',
+    builder: {
+        category: {
+            demandOption: true,
+            describe: 'The category you wish to delete',
+            type: 'string'
+        }
+    },
+    handler(argv) {
+        trackedItems.deleteCategory(argv.category);
+    }
 })
 
 
@@ -135,8 +149,8 @@ yargs.parse();
 
 /*
 TODO
-- Fix bug in which renaming categories doesn't check for duplicates. 
-  The issue is you can rename a category to another category that already exists. 
+- Fix bug in which renaming categories doesn't check for duplicates.
+  The issue is you can rename a category to another category that already exists.
 
 - Data should print to console wheter it's capitalized or not.
 - Add the ability to delete categories
